@@ -1,15 +1,15 @@
-import 'package:chat_app/widgets/Custom_Button.dart';
 import 'package:flutter/material.dart';
 
 import '../constants.dart';
+import '../widgets/Custom_Button.dart';
 import '../widgets/Custom_TextField.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+class SignUpScreen extends StatelessWidget {
+  const SignUpScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return   Scaffold(
+    return  Scaffold(
       backgroundColor: KPrimaryBackgraund,
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 6),
@@ -31,7 +31,7 @@ class LoginScreen extends StatelessWidget {
         
             Row(
               children: const [
-                Text("LOGIN",
+                Text("Sign Up",
                 style: TextStyle(color:Colors.white,
                 fontSize: 22,
                 fontWeight: FontWeight.bold ,),),
@@ -50,22 +50,21 @@ class LoginScreen extends StatelessWidget {
               const SizedBox(
               height: 8,
             ),
-             const CustomButton(ActionName:"LOGIN"),
+             const CustomButton(ActionName:"Sign Up"),
               const SizedBox(
               height: 8,
             ), 
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children:  [
-              const Text("don't have account?",style: TextStyle(
+              const Text("already have account?",style: TextStyle(
                 color: Colors.white,
               ),),
-              
                GestureDetector(
-                onTap: (){
-                  Navigator.pushNamed(context, 'SignUpScreen');
+                onTap: () {
+                 Navigator.pop(context);
                 },
-                 child: const Text(" Sign Up",style: TextStyle(
+                 child: const Text(" Log in",style: TextStyle(
                   color: Color.fromARGB(255, 155, 203, 203),
                              ),),
                )
@@ -79,4 +78,4 @@ class LoginScreen extends StatelessWidget {
     );
    
   }
-}
+  }
