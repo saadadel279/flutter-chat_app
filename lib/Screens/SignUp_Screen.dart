@@ -5,10 +5,19 @@ import '../constants.dart';
 import '../widgets/Custom_Button.dart';
 import '../widgets/Custom_TextField.dart';
 
-class SignUpScreen extends StatelessWidget {
-   SignUpScreen({super.key});
+class SignUpScreen extends StatefulWidget {
+   const SignUpScreen({super.key});
+
+  @override
+  State<SignUpScreen> createState() => _SignUpScreenState();
+}
+
+class _SignUpScreenState extends State<SignUpScreen> {
   String? email;
+
   String? password;
+
+  GlobalKey<FormState> formKey=GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -16,96 +25,103 @@ class SignUpScreen extends StatelessWidget {
       backgroundColor: KPrimaryBackgraund,
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 6),
-        child: Column(
+        child: Form(
+          key: formKey,
+          child: Column(
+            
+            children: [
+              const Spacer(
+                flex: 1,
+              ),
+              Image.asset('assets/images/scholar.png'),
+        
+              const Text("Scholer Chat",
+              style: TextStyle(color:Colors.white,
+              fontSize: 22,
+              fontWeight: FontWeight.bold ,fontFamily: "Pacifico"),),
+              const SizedBox(
+                height: 25,
+              ),
           
-          children: [
-            const Spacer(
-              flex: 1,
-            ),
-            Image.asset('assets/images/scholar.png'),
-
-            const Text("Scholer Chat",
-            style: TextStyle(color:Colors.white,
-            fontSize: 22,
-            fontWeight: FontWeight.bold ,fontFamily: "Pacifico"),),
-            const SizedBox(
-              height: 25,
-            ),
-        
-            Row(
-              children: const [
-                Text("Sign Up",
-                style: TextStyle(color:Colors.white,
-                fontSize: 22,
-                fontWeight: FontWeight.bold ,),),
-              ],
-              
-            ),
-             const SizedBox(
-              height: 8,
-            ),
-        
-              CustomTextField(
-                onChanged: (data) {
-                  email=data;
-                },
-                hintText: "email"),
-              const SizedBox(
-              height: 8,
-            ),
-              CustomTextField(
-                onChanged: (data) {
-                  password=data;
-                },
-                hintText: "password"),
-              const SizedBox(
-              height: 8,
-            ),
-              CustomButton(
-              onTap: ()async {
+              Row(
+                children: const [
+                  Text("Sign Up",
+                  style: TextStyle(color:Colors.white,
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold ,),),
+                ],
                 
-                
-                try{  
-                  await regesterUser();
-                  showSnackBar(context, 'Successful registration.');
-
-                  } on FirebaseAuthException catch (e) {
-                    if (e.code == 'weak-password') {
-                     showSnackBar(context,"weak password ,Password should be at least 6 characters");
-                    } else if (e.code == 'email-already-in-use') {
-                      showSnackBar(context, 'The account already exists for that email.');
-                  }
-                    }
-                catch(e){
-                    print(e);
-                  }
-
-              
-              },
-              ActionName:"Sign Up"),
-              const SizedBox(
-              height: 8,
-            ), 
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children:  [
-              const Text("already have account?",style: TextStyle(
-                color: Colors.white,
-              ),),
-               GestureDetector(
-                onTap: () {
-                 Navigator.pop(context);
-                },
-                 child: const Text(" Log in",style: TextStyle(
-                  color: Color.fromARGB(255, 155, 203, 203),
-                             ),),
-               )
-            ],),
-             const Spacer(
-              flex: 2,
-            ),
+              ),
+               const SizedBox(
+                height: 8,
+              ),
+          
+                CustomTextField(
+                  onChanged: (data) {
+                    email=data;
+                  },
+                  hintText: "email"),
+                const SizedBox(
+                height: 8,
+              ),
+                CustomTextField(
+                  onChanged: (data) {
+                    password=data;
+                  },
+                  hintText: "password"),
+                const SizedBox(
+                height: 8,
+              ),
+                CustomButton(
+                onTap: ()async {
+                  
+                  
+                  if (formKey.currentState!.validate()) {
+          try{  
+            await regesterUser();
+            showSnackBar(context, 'Successful registration.');
+          
+            } on FirebaseAuthException catch (e) {
+              if (e.code == 'weak-password') {
+               showSnackBar(context,"weak password ,Password should be at least 6 characters");
+              } else if (e.code == 'email-already-in-use') {
+          showSnackBar(context, 'The account already exists for that email.');
+            }
+              }
+          catch(e){
+              print(e);
+            }
+        } else{
+          
+        }
         
-        ]),
+                
+                },
+                ActionName:"Sign Up"),
+                const SizedBox(
+                height: 8,
+              ), 
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children:  [
+                const Text("already have account?",style: TextStyle(
+                  color: Colors.white,
+                ),),
+                 GestureDetector(
+                  onTap: () {
+                   Navigator.pop(context);
+                  },
+                   child: const Text(" Log in",style: TextStyle(
+                    color: Color.fromARGB(255, 155, 203, 203),
+                               ),),
+                 )
+              ],),
+               const Spacer(
+                flex: 2,
+              ),
+          
+          ]),
+        ),
       ),
     );
    
@@ -120,4 +136,4 @@ class SignUpScreen extends StatelessWidget {
     email: email!, 
     password: password!);
   }
-  }
+}
