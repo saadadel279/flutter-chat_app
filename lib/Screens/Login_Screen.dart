@@ -42,15 +42,28 @@ class LoginScreen extends StatelessWidget {
               height: 8,
             ),
         
-             const CustomTextField(hintText: "email"),
+              CustomTextField(
+                
+                onChanged: (data) {
+                  
+                },
+                hintText: "email"),
               const SizedBox(
               height: 8,
             ),
-             const CustomTextField(hintText: "password"),
+              CustomTextField(
+                 onChanged: (data) {
+                  
+                },
+                hintText: "password"),
               const SizedBox(
               height: 8,
             ),
-             const CustomButton(ActionName:"LOGIN"),
+              CustomButton(
+                onTap: () {
+                  
+                },
+                ActionName:"LOGIN"),
               const SizedBox(
               height: 8,
             ), 

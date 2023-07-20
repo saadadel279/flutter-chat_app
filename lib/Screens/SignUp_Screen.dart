@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../constants.dart';
@@ -5,7 +6,9 @@ import '../widgets/Custom_Button.dart';
 import '../widgets/Custom_TextField.dart';
 
 class SignUpScreen extends StatelessWidget {
-  const SignUpScreen({super.key});
+   SignUpScreen({super.key});
+  String? email;
+  String? password;
 
   @override
   Widget build(BuildContext context) {
@@ -42,15 +45,44 @@ class SignUpScreen extends StatelessWidget {
               height: 8,
             ),
         
-             const CustomTextField(hintText: "email"),
+              CustomTextField(
+                onChanged: (data) {
+                  email=data;
+                },
+                hintText: "email"),
               const SizedBox(
               height: 8,
             ),
-             const CustomTextField(hintText: "password"),
+              CustomTextField(
+                onChanged: (data) {
+                  password=data;
+                },
+                hintText: "password"),
               const SizedBox(
               height: 8,
             ),
-             const CustomButton(ActionName:"Sign Up"),
+              CustomButton(
+              onTap: ()async {
+                
+                
+                try{  
+                  await regesterUser();
+                  showSnackBar(context, 'Successful registration.');
+
+                  } on FirebaseAuthException catch (e) {
+                    if (e.code == 'weak-password') {
+                     showSnackBar(context,"weak password ,Password should be at least 6 characters");
+                    } else if (e.code == 'email-already-in-use') {
+                      showSnackBar(context, 'The account already exists for that email.');
+                  }
+                    }
+                catch(e){
+                    print(e);
+                  }
+
+              
+              },
+              ActionName:"Sign Up"),
               const SizedBox(
               height: 8,
             ), 
@@ -77,5 +109,15 @@ class SignUpScreen extends StatelessWidget {
       ),
     );
    
+  }
+
+  void showSnackBar(BuildContext context,String message) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message),),);
+  }
+
+  Future<void> regesterUser() async {
+     UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword( 
+    email: email!, 
+    password: password!);
   }
   }

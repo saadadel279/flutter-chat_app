@@ -10,7 +10,7 @@ void main()async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const chatapp());
+  runApp( const chatapp());
   
 }
 class chatapp extends StatelessWidget {
@@ -20,8 +20,8 @@ class chatapp extends StatelessWidget {
   Widget build(BuildContext context) {
     return  MaterialApp(
       routes: {
-        'LoginScrean': (context) => const LoginScreen(),
-        'SignUpScreen':(context) => const SignUpScreen()
+        'LoginScrean': (context) =>  const LoginScreen(),
+        'SignUpScreen':(context) =>  SignUpScreen()
       },
       initialRoute: 'LoginScrean',
       
