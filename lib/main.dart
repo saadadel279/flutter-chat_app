@@ -20,8 +20,8 @@ class chatapp extends StatelessWidget {
   Widget build(BuildContext context) {
     return  MaterialApp(
       routes: {
-        'LoginScrean': (context) =>  const LoginScreen(),
-        'SignUpScreen':(context) =>  SignUpScreen()
+        'LoginScrean': (context) =>   LoginScreen(),
+        'SignUpScreen':(context) =>  const SignUpScreen()
       },
       initialRoute: 'LoginScrean',
       
