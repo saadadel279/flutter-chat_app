@@ -74,6 +74,7 @@ class LoginScreen extends StatelessWidget {
           try{  
             await loginUser();
             showSnackBar(context, 'Login Successful.');
+            Navigator.pushNamed(context, 'ChatScreen');
           
             } on FirebaseAuthException catch (e) {
               if (e.code == 'user-not-found') {
