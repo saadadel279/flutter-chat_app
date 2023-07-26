@@ -24,7 +24,7 @@ class chatapp extends StatelessWidget {
       routes: {
         'LoginScrean': (context) =>   LoginScreen(),
         'SignUpScreen':(context) =>  const SignUpScreen(),
-        'ChatScreen':(context) => const ChatScreen(),
+        'ChatScreen':(context) =>  ChatScreen(),
       },
       initialRoute: 'LoginScrean',
       
